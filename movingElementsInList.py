@@ -1,21 +1,59 @@
 """
-  This is for moving up and down (or left and right) elements in a Python list. 
+  This is a function for moving elements left and right in a Python list. 
   TODO: 
-  * Error checking for input
-  * enable moving several positions at once
+  * more testing
 """
 
-def moveListItem(lis, pos, direction="left"):
-    if pos < 1 or pos >= len(lis)-1:
-        return
+def moveListItem(lis, pos, count=1, direction="left"):
+    """
+    move items in a list up or down.
+    the original list will be modified, so you might not need the return value.
     
-    add = 1
+    This should be O(1)
+
+   :param list lis: The list to be manipulated
+   :param int pos: The index of the item to be moved, from 0 -> len(lis)-1
+   :param int count: The number of positions it gets moved, -1 for maximal
+   :param str direction: if 'left', moving left, if 'right' or anything else, to the right
+   :return: True if moved, false if nothing has been moved
+   :rtype: bool
+   :raises TypeError: if the lis is not a valid list
+   :raises LookupError: if the pos is out of list lis bounds
+    """
+    
+    if type(lis) != list:
+        raise TypeError("Given argument lis is not a list!")
+        
+    if pos < 0 or pos >=len(lis):
+        raise LookupError("List position out of bounds!")
     
     if direction.lower() == "left":
         add = -1
+        if pos < 1: # only move if not on the left side
+            return False
+    else: # right
+        add = 1
+        if  pos >= len(lis)-1: # only move if not on the right side
+            return False
+
     
+    if count == 0:
+        return False
+    elif count == -1:
+        count = len(lis)
+        
+    # calculate insert position    
+    newpos = pos + add * count
+    
+    # cap if requested pos is too big
+    if newpos >= len(lis):
+        newpos = len(lis)-1
+    elif newpos < 0:
+        newpos = 0
+        
     element = lis.pop(pos)
-    lis.insert(pos+add, element)
+    lis.insert(newpos, element)
+    return True
     
 
 if __name__ == "__main__":
