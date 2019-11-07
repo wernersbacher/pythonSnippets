@@ -62,7 +62,7 @@ if __name__ == "__main__":
     # printing original list
     print ("The original list is : " + str(test_list))
 
-    moveListItem(test_list, 2, direction="right")
+    moveListItem(test_list, 1, count=2, direction="right")
 
     # printing result
     print ("The modified element moved list is : " + str(test_list))
