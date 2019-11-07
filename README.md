@@ -1,2 +1,3 @@
 # pythonSnippets
-useful python functions, snippets or classes
+
+This github is for useful python code snippets.
